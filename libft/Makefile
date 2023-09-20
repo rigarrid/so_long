@@ -29,7 +29,6 @@ $(NAME): $(FILES_OBJ)
 $(OB_PATH)%.o: $(LB_SRC)%.c
 	@mkdir -p $(OB_PATH)
 	@$(CC) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
-	@echo "compiled object $@"
 
 ###################
 ### CLEAN RULES ###

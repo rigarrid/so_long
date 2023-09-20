@@ -49,10 +49,12 @@ typedef struct	s_image
 typedef struct s_map
 {
 	char		**map;
+	char		**map2;
 	char		*line;
 	int			fd;
 	t_vector	mass;
+	t_vector	start;
+	t_tiles		cons;
 }				t_map;
 
 #endif
-
