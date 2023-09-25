@@ -23,12 +23,7 @@ int	ft_unsigned(unsigned int nb)
 	int	size;
 
 	size = 0;
-	if (nb < 0)
-	{
-		nb += -1;
-		size += ft_putnbr(nb);
-	}
-	else if (nb > 9)
+	if (nb > 9)
 	{
 		size += ft_putnbr(nb / 10);
 		size += ft_putnbr(nb % 10);

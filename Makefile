@@ -16,7 +16,7 @@ SL_SRC = src/
 
 OB_PATH = obj/
 
-SL_FILES = main
+SL_FILES = main map errors aux
 
 FILES_OBJ = $(addprefix $(OB_PATH), $(addsuffix .o, $(SL_FILES)))
 
