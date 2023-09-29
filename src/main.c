@@ -6,7 +6,7 @@
 /*   By: rigarrid <rigarrid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 15:00:49 by rigarrid          #+#    #+#             */
-/*   Updated: 2023/09/29 17:51:11 by rigarrid         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:52:11 by rigarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_reference(t_reference *refs, t_mlx window)
 	&refs->size.x, &refs->size.y);
 	refs->exit = mlx_xpm_file_to_image(window.mlx_ptr, "textures/exit.xpm", 
 	&refs->size.x, &refs->size.y);
-	refs->start = mlx_xpm_file_to_image(window.mlx_ptr, "textures/start.xpm", 
+	refs->player = mlx_xpm_file_to_image(window.mlx_ptr, "textures/player.xpm", 
 	&refs->size.x, &refs->size.y);
 }
 void	ft_graphic(char tile, t_mlx	window)
@@ -37,7 +37,7 @@ void	ft_graphic(char tile, t_mlx	window)
 	if (tile == 'C')
 		mlx_put_image_to_window(window.mlx_ptr, window.win_ptr, window.refes.coin, window.size.x, window.size.y);
 	if (tile == 'P')
-		mlx_put_image_to_window(window.mlx_ptr, window.win_ptr, window.refes.start, window.size.x, window.size.y);
+		mlx_put_image_to_window(window.mlx_ptr, window.win_ptr, window.refes.player, window.size.x, window.size.y);
 	if (tile == 'E')
 		mlx_put_image_to_window(window.mlx_ptr, window.win_ptr, window.refes.exit, window.size.x, window.size.y);
 }

@@ -6,7 +6,7 @@
 /*   By: rigarrid <rigarrid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:51:24 by rigarrid          #+#    #+#             */
-/*   Updated: 2023/09/29 17:27:35 by rigarrid         ###   ########.fr       */
+/*   Updated: 2023/09/29 18:32:28 by rigarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_reference
 	void		*wall;
 	void		*exit;
 	void		*coin;
-	void		*start;
+	void		*player;
 	t_vector	size;
 }	t_reference;
 
