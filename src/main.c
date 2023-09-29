@@ -6,7 +6,7 @@
 /*   By: rigarrid <rigarrid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 15:00:49 by rigarrid          #+#    #+#             */
-/*   Updated: 2023/09/29 16:44:28 by rigarrid         ###   ########.fr       */
+/*   Updated: 2023/09/29 17:51:11 by rigarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,73 @@ static void	ft_visual(char *line, t_mlx *window)
 	}
 }
 
-/*int move(int keycode, void *param)
+int move(int keycode, void *param)
 {
 	t_mlx *program = (t_mlx *)param;
+	program->size.y = -1;
 
-	//mlx_clear_window(program->mlx_ptr, program->win_ptr);
-	if (keycode == 0)
-		program->world.start.y -= 1;
-	program->world.start.y *= 64;
-	mlx_put_image_to_window(program->mlx_ptr, program->win_ptr, program->refes.exit, program->world.start.x, program->world.start.y);
+	if (keycode >= 0)
+	{
+		program->map[program->yplayer][program->xplayer] = '0';
+		if (keycode == 1 && (program->map[program->yplayer + 1][program->xplayer] != '1'))
+		{
+			if ((program->map[program->yplayer + 1][program->xplayer] == 'E') && (program->hold.coin == program->coin))
+				program->yplayer += 1;
+			else if ((program->map[program->yplayer + 1][program->xplayer] == 'E') && (program->hold.coin != program->coin))
+				ft_printf("You dont have enough coins to escape!\n");
+			else if (program->map[program->yplayer + 1][program->xplayer] != 'E')
+				program->yplayer += 1;
+		}
+		else if (keycode == 13 && (program->map[program->yplayer - 1][program->xplayer] != '1'))
+		{
+			if ((program->map[program->yplayer - 1][program->xplayer] == 'E') && (program->hold.coin == program->coin))
+				program->yplayer -= 1;
+			else if ((program->map[program->yplayer - 1][program->xplayer] == 'E') && (program->hold.coin != program->coin))
+				ft_printf("You dont have enough coins to escape!\n");
+			else if (program->map[program->yplayer - 1][program->xplayer] != 'E')
+				program->yplayer -= 1;
+		}
+		else if (keycode == 0 && (program->map[program->yplayer][program->xplayer - 1] != '1'))
+		{
+			if ((program->map[program->yplayer][program->xplayer - 1] == 'E') && (program->hold.coin == program->coin))
+				mlx_destroy_window(program->mlx_ptr, program->win_ptr);
+			else if ((program->map[program->yplayer][program->xplayer - 1] == 'E') && (program->hold.coin != program->coin))
+				ft_printf("You dont have enough coins to escape!\n");
+			else if (program->map[program->yplayer][program->xplayer - 1] != 'E')
+				program->xplayer -= 1;
+		}
+		else if (keycode == 2 && (program->map[program->yplayer][program->xplayer + 1] != '1'))
+		{
+			if ((program->map[program->yplayer][program->xplayer + 1] == 'E') && (program->hold.coin == program->coin))
+				program->xplayer += 1;
+			else if ((program->map[program->yplayer][program->xplayer + 1] == 'E') && (program->hold.coin != program->coin))
+				ft_printf("You dont have enough coins to escape!\n");
+			else if (program->map[program->yplayer][program->xplayer + 1] != 'E')
+				program->xplayer += 1;
+		}
+		if (program->map[program->yplayer][program->xplayer] == 'C')
+			program->hold.coin++;
+		program->map[program->yplayer][program->xplayer] = 'P';
+		while (program->map[++program->size.y] != NULL)
+			ft_visual(program->map[program->size.y], program);
+		ft_printf("monedas: %d\n", program->hold.coin);
+	}
 	return (0);
-}*/
+}
 
 int main()
 {
 	t_mlx		game;
 
 	game.size.y = -1;
+	game.hold.coin = 0;
 	if ((ft_getmap(&game) == 0) && (ft_checkmap(&game) == 0) && (ft_beatmap(game) == 0))
 	{
 		game.mlx_ptr = mlx_init();
 		game.win_ptr = mlx_new_window(game.mlx_ptr, (game.mass.x * 64), (game.mass.y * 64), "Alpha 3");
 		while (game.map[++game.size.y] != NULL)
 			ft_visual(game.map[game.size.y], &game);
-		//mlx_key_hook(game.win_ptr, move, &game);
+		mlx_key_hook(game.win_ptr, move, &game);
 		mlx_loop(game.mlx_ptr);
 	}
     /*if (argc != 2)
