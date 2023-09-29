@@ -6,7 +6,7 @@
 /*   By: rigarrid <rigarrid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 15:00:49 by rigarrid          #+#    #+#             */
-/*   Updated: 2023/09/26 18:30:22 by rigarrid         ###   ########.fr       */
+/*   Updated: 2023/09/29 16:44:28 by rigarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,17 @@ static void	ft_visual(char *line, t_mlx *window)
 
 int main()
 {
-	t_mlx		window;
+	t_mlx		game;
 
-	window.size.y = -1;
-	if (ft_getmap(&window.world) == 0 && ft_checkmap(&window.world) == 0 && ft_beatmap(window.world) == 0)
+	game.size.y = -1;
+	if ((ft_getmap(&game) == 0) && (ft_checkmap(&game) == 0) && (ft_beatmap(game) == 0))
 	{
-		window.mlx_ptr = mlx_init();
-		window.win_ptr = mlx_new_window(window.mlx_ptr, (window.world.mass.x * 64), (window.world.mass.y * 64), "Alpha 3");
-		while (window.world.map[++window.size.y] != NULL)
-			ft_visual(window.world.map[window.size.y], &window);
-		//mlx_key_hook(window.win_ptr, move, &window);
-		mlx_loop(window.mlx_ptr);
+		game.mlx_ptr = mlx_init();
+		game.win_ptr = mlx_new_window(game.mlx_ptr, (game.mass.x * 64), (game.mass.y * 64), "Alpha 3");
+		while (game.map[++game.size.y] != NULL)
+			ft_visual(game.map[game.size.y], &game);
+		//mlx_key_hook(game.win_ptr, move, &game);
+		mlx_loop(game.mlx_ptr);
 	}
     /*if (argc != 2)
 		ft_printf("Invalid number of arguments!\n");
