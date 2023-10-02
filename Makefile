@@ -52,7 +52,7 @@ clean:
 
 fclean: clean
 	@rm -rf libft/libft.a
-	@rm -rf $(NAME)
+	@rm -rf $(NAME).a
 	@rm -rf $(NAME).c
 
 re: fclean all
