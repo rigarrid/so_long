@@ -31,7 +31,7 @@ all: $(NAME)
 $(LB_LIB): $(LB_PATH)
 	@mkdir -p $(OB_PATH)
 	@make -C libft
-	@cp libft/libft.a $(NAME)
+	@cp libft/libft.a $(NAME).a
 
 $(NAME): $(LB_LIB) $(FILES_OBJ)
 	@ar -rsc $(NAME).a $(FILES_OBJ)
@@ -53,6 +53,6 @@ clean:
 fclean: clean
 	@rm -rf libft/libft.a
 	@rm -rf $(NAME).a
-	@rm -rf $(NAME).c
+	@rm -rf $(NAME)
 
 re: fclean all
