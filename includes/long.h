@@ -6,7 +6,7 @@
 /*   By: rigarrid <rigarrid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 14:51:24 by rigarrid          #+#    #+#             */
-/*   Updated: 2023/09/29 18:32:28 by rigarrid         ###   ########.fr       */
+/*   Updated: 2023/10/02 16:09:08 by rigarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ typedef struct s_vector
 
 typedef struct s_tiles
 {
-	int	exit;
-	int	coin;
-	int	start;
+	int		exit;
+	int		coin;
+	int		start;
+	int		move;
+	char	*file;
 }				t_tiles;
 
 typedef struct s_reference
@@ -62,12 +64,17 @@ typedef struct s_mlx
 	t_tiles		hold;
 }	t_mlx;
 
+void	ft_check_file_name(char *file);
 int		ft_error(int ne);
 void	ft_matrix(t_mlx *world);
 int		ft_getmap(t_mlx *world);
 int		ft_items(t_mlx *world, int x, int y);
 int		ft_checkmap(t_mlx *world);
 int		ft_search(t_mlx world, t_tiles *col, int x, int y);
+void	ft_visual(char *line, t_mlx *window);
 int		ft_beatmap(t_mlx world);
+void	ft_endgame(t_mlx *g, int data);
+int		ft_move(int keycode, void *param);
+void	ft_endgame(t_mlx *g, int data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rigarrid <rigarrid@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 15:00:59 by rigarrid          #+#    #+#             */
-/*   Updated: 2023/09/29 16:53:28 by rigarrid         ###   ########.fr       */
+/*   Updated: 2023/10/02 15:59:42 by rigarrid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 /*
 Función que se encarga de almacenar el mapa en una matriz,
 tambien almacena cuantas lineas y columnas hay.
-- INT world->mass.y = Nº lineas
-- INT world->mass.x = Nº columnas
-- CHAR ** world->map = matriz con el mapa almacenado
 */
 
 int	ft_getmap(t_mlx *world)
@@ -26,14 +23,12 @@ int	ft_getmap(t_mlx *world)
 
 	c = 0;
 	world->mass.y = 0;
-	world->fd = open("test.ber", O_RDONLY);
-	if (world->fd == -1)
-		return (ft_error(5));
 	world->line = get_next_line(world->fd);
 	while (world->line != NULL)
 	{
 		if (world->mass.y++ == 0)
 			world->mass.x = ft_strlen(world->line) - 1;
+		free(world->line);
 		world->line = get_next_line(world->fd);
 	}
 	ft_matrix(world);
@@ -42,12 +37,17 @@ int	ft_getmap(t_mlx *world)
 	{
 		world->map[c] = ft_substr(world->line, 0, world->mass.x);
 		world->map2[c] = ft_substr(world->line, 0, world->mass.x);
+		free(world->line);
 		world->line = get_next_line(world->fd);
 		c++;
 	}
 	close(world->fd);
 	return (0);
 }
+
+/*
+Función que cuenta cuantos items hay en el mapa
+*/
 
 int	ft_items(t_mlx *world, int x, int y)
 {
@@ -78,6 +78,10 @@ int	ft_items(t_mlx *world, int x, int y)
 	return (0);
 }
 
+/*
+Función que comprueba que el mapa es valido
+*/
+
 int	ft_checkmap(t_mlx *world)
 {
 	t_vector	nav;
@@ -96,6 +100,10 @@ int	ft_checkmap(t_mlx *world)
 		return (ft_error(4));
 	return (result);
 }
+
+/*
+Función que busca los caminos disponibles
+*/
 
 int	ft_search(t_mlx world, t_tiles *col, int x, int y)
 {
@@ -119,6 +127,10 @@ int	ft_search(t_mlx world, t_tiles *col, int x, int y)
 	return (1);
 }
 
+/*
+Función que comprueba que el mapa es completable
+*/
+
 int	ft_beatmap(t_mlx world)
 {
 	t_tiles		check;
@@ -133,5 +145,6 @@ int	ft_beatmap(t_mlx world)
 	result = ft_search(world, &check, x, y);
 	if (result == 1)
 		ft_printf("ERROR\nMap not beatable\n");
+	free(world.map2);
 	return (result);
 }

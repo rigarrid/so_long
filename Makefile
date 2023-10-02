@@ -1,10 +1,12 @@
 ### FILES AND DIRECTORIES ###
 
-NAME = so_long.a
+NAME = so_long
 
 CC = gcc
 
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
+
+MLXFLAGS = -lmlx -framework OpenGL -framework AppKit
 
 INCLUDES = includes/
 
@@ -16,7 +18,7 @@ SL_SRC = src/
 
 OB_PATH = obj/
 
-SL_FILES = main map errors aux
+SL_FILES = main map errors aux render inputs
 
 FILES_OBJ = $(addprefix $(OB_PATH), $(addsuffix .o, $(SL_FILES)))
 
@@ -32,7 +34,8 @@ $(LB_LIB): $(LB_PATH)
 	@cp libft/libft.a $(NAME)
 
 $(NAME): $(LB_LIB) $(FILES_OBJ)
-	@ar -rsc $(NAME) $(FILES_OBJ)
+	@ar -rsc $(NAME).a $(FILES_OBJ)
+	@$(CC) $(CFLAGS) $(MLXFLAGS) -o so_long $(NAME).a
 	@echo "compiled $(NAME)"
 
 $(OB_PATH)%.o: $(SL_SRC)%.c
@@ -50,5 +53,6 @@ clean:
 fclean: clean
 	@rm -rf libft/libft.a
 	@rm -rf $(NAME)
+	@rm -rf $(NAME).c
 
 re: fclean all
